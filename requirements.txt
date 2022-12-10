@@ -1,3 +1,2 @@
 fpdf==1.7.2
-Pillow==9.3.0
 streamlit==1.15.2

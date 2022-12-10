@@ -2,7 +2,6 @@ import streamlit as st
 from datetime import date
 from fpdf import FPDF
 import base64
-from PIL import Image
 
 # date du jour
 today = date.today()
@@ -151,16 +150,32 @@ def create_download_link(val, filename):
 if file_name != "":
     pdf = FPDF()
     pdf.add_page()
-
+    pdf.image("logo.png",x=10,y=36,w=40,h=40)
     pdf.set_font('Arial', style='B', size=15)
     pdf.cell(0,10,f"Facture n°{file_name} du {today_day}/{today_month}/{today_year}",border=1,align="C",ln=2)
     pdf.cell(0,15,ln=2)
     pdf.set_font('Arial', style='', size=10)
-    pdf.cell(50,7,f" {nom_the} {prenom_the}",border="L",ln=2)
-    pdf.cell(50,7," Téléphone : "+num_the,border="L",ln=2)
-    pdf.cell(50,7," Mail : "+mail_the,border="L",ln=2)
-    pdf.cell(50,7," Adresse : "+adresse_the,border="L",ln=2)
-    pdf.cell(50,7," SIRET : "+siret_the,border="L",ln=2)
+
+    pdf.cell(45,7)
+    pdf.cell(50,7,f" {nom_the} {prenom_the}",border="L")
+    pdf.ln()
+    pdf.cell(45,7)
+    pdf.set_font('Arial', style='B', size=10)
+    pdf.cell(50,7," Sophrologue - Coach Comportemental Jeunes",border="L")
+    pdf.set_font('Arial', style='', size=10)
+    pdf.ln()
+    pdf.cell(45,7)
+    pdf.cell(50,7," Téléphone : "+num_the,border="L")
+    pdf.ln()
+    pdf.cell(45,7)
+    pdf.cell(50,7," Mail : "+mail_the,border="L")
+    pdf.ln()
+    pdf.cell(45,7)
+    pdf.cell(50,7," Adresse : "+adresse_the,border="L")
+    pdf.ln()
+    pdf.cell(45,7)
+    pdf.cell(50,7," SIRET : "+siret_the,border="L")
+    pdf.ln()
 
     pdf.cell(0,15,ln=2)
 
@@ -173,11 +188,12 @@ if file_name != "":
     
     pdf.cell(0,15,ln=2)
 
-    pdf.set_font('Arial', style='', size=10)
+    pdf.set_font('Arial', style='B', size=10)
     pdf.cell(100,10," Intitulé",border=1,align="L")
-    pdf.cell(45,10,"Date de préstation",border=1,align="C")
+    pdf.cell(45,10,"Date de prestation",border=1,align="C")
     pdf.cell(45,10,"Prix",border=1,align="C")
     pdf.ln()
+    pdf.set_font('Arial', style='', size=10)
     pdf.cell(100,10,f" {presta}",align="L",border=1)
     pdf.cell(45,10,f"{day}/{month}/{year}",align="C",border=1)
     pdf.cell(45,10,f"{str(prix)} euros",align="C",border=1)
@@ -192,6 +208,6 @@ if file_name != "":
     pdf.ln()
     pdf.cell(0,10,"CITRO Magali  ",align="R")
     pdf.ln()
-    pdf.image("logo.png",x=155,y=240,w=40,h=40)
+    pdf.image("exemple_signature.png",x=155,y=240,w=40,h=40)
     html = create_download_link(pdf.output(dest="S").encode('latin-1'), f"fact_{file_name}")
     dl_col2.markdown(html, unsafe_allow_html=True)
