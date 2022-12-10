@@ -141,9 +141,8 @@ st.columns(3)[1].markdown("<p style='padding: 20; border: 2px solid white;text-a
 
 # --- PDF ---
 
-dl_col1,dl_col2,dl_col3,dl_col4 = st.columns([6,3,3,6])
-signature = dl_col2.file_uploader(label="Signature ")
-file_name = dl_col3.text_input("Numero de facture :")
+dl_col1,dl_col2,dl_col3 = st.columns([6,3,6])
+file_name = dl_col2.text_input("Numero de facture :")
 def create_download_link(val, filename):
     b64 = base64.b64encode(val)  # val looks like b'...'
     return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Télécharger facture n°{file_name}</a>'
@@ -193,6 +192,6 @@ if file_name != "":
     pdf.ln()
     pdf.cell(0,10,"CITRO Magali  ",align="R")
     pdf.ln()
-    pdf.image(signature.name,x=155,y=240,w=40,h=40)
+    pdf.image("logo.png",x=155,y=240,w=40,h=40)
     html = create_download_link(pdf.output(dest="S").encode('latin-1'), f"fact_{file_name}")
-    dl_col3.markdown(html, unsafe_allow_html=True)
+    dl_col2.markdown(html, unsafe_allow_html=True)
